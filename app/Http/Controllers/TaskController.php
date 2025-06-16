@@ -42,6 +42,8 @@ class TaskController extends Controller
             "task_date" => $request->task_date
         ]);
 
+
+
         return redirect()->back()->with('success', 'Görev başarıyla eklendi.');
     }
 
@@ -58,7 +60,9 @@ class TaskController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $task = Task::find($id);
+
+        return view("update_task", compact("task"));
     }
 
     /**
@@ -66,7 +70,21 @@ class TaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+         $request->validate([
+            'task_title' => 'required|string|max:255',
+            'task_content' => 'nullable|string',
+            'task_date' => 'required|date',
+        ]);
+
+        $task = Task::find($id);
+
+         $task->update([
+            "task_title" => $request->task_title,
+            "task_content" => $request->task_content,
+            "task_date" => $request->task_date
+        ]);
+
+        return redirect()->back()->with('success', 'Görev başarıyla güncellendi.');
     }
 
     /**
@@ -77,5 +95,14 @@ class TaskController extends Controller
         Task::where("id", $id)->delete();
 
         return redirect()->back()->with('delete', 'Görev başarıyla silindi.');
+    }
+
+    public function statusUpdate(string $id)  {
+        $task = Task::find($id);
+        $task->update([
+            "task_status" => 1
+        ]);
+
+        return redirect()->back()->with("success", "Görev durumu güncellendi.");
     }
 }

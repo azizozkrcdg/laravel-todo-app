@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string("task_title");
             $table->string("task_content");
             $table->string("task_date");
+            $table->boolean("task_status")->default(false);
         });
     }
 
