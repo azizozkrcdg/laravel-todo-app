@@ -39,7 +39,8 @@
                             <th scope="col">#</th>
                             <th scope="col">Başlık</th>
                             <th scope="col">İçerik</th>
-                            <th scope="col">Tarih</th>
+                            <th scope="col">Oluşturulma Tarihi</th>
+                            <th scope="col">Görev Tarihi</th>
                             <th scope="col">Durum</th>
                             <th scope="col" class="text-center">Düzenle</th>
                             <th scope="col" class="text-center">Sil</th>
@@ -54,10 +55,11 @@
                                 <th scope="row">{{ $task->id }}</th>
                                 <td>{{ $task->task_title }}</td>
                                 <td>{{ $task->task_content }}</td>
+                                <td>{{ $task->created_at }}</td>
                                 <td>{{ $task->task_date }}</td>
                                 <td><a class="{{$task->task_status ? 'btn btn-success' : 'btn btn-primary'}}">{{$task->task_status ? "Tamamlandı" : "Devam ediyor..."}}</a></td>
                                 <td class="text-center">
-                                    <a href="{{ route('getTaskUpdate', $task->id) }}" class="btn btn-sm btn-outline-success">
+                                    <a href="{{ route('getTaskUpdate', $task->id) }}" class="btn btn-sm btn-outline-success {{$task->task_status ? 'disabled' : ''}}">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
                                 </td>

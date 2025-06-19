@@ -70,7 +70,7 @@ class TaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
-         $request->validate([
+        $request->validate([
             'task_title' => 'required|string|max:255',
             'task_content' => 'nullable|string',
             'task_date' => 'required|date',
@@ -78,7 +78,7 @@ class TaskController extends Controller
 
         $task = Task::find($id);
 
-         $task->update([
+        $task->update([
             "task_title" => $request->task_title,
             "task_content" => $request->task_content,
             "task_date" => $request->task_date
@@ -97,11 +97,19 @@ class TaskController extends Controller
         return redirect()->back()->with('delete', 'Görev başarıyla silindi.');
     }
 
-    public function statusUpdate(string $id)  {
+    public function statusUpdate(string $id)
+    {
         $task = Task::find($id);
-        $task->update([
-            "task_status" => 1
-        ]);
+
+        if ($task->task_status == 0) {
+            $task->update([
+                "task_status" => 1
+            ]);
+        } else {
+            $task->update([
+                "task_status" => 0
+            ]);
+        }
 
         return redirect()->back()->with("success", "Görev durumu güncellendi.");
     }
