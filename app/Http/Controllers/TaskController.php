@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Task;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -12,7 +13,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = Task::where("user_id", Auth::user()->id)
+            ->orderBy("task_date", "desc")
+            ->get();
 
         return view("index", compact("tasks"));
     }
@@ -39,7 +42,8 @@ class TaskController extends Controller
         Task::create([
             "task_title" => $request->task_title,
             "task_content" => $request->task_content,
-            "task_date" => $request->task_date
+            "task_date" => $request->task_date,
+            "user_id" => Auth::user()->id,
         ]);
 
 
