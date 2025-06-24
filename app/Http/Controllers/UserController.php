@@ -46,12 +46,27 @@ class UserController extends Controller
         return redirect()->route("login");
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
+    public function create()
+    {
+        return view("/register");
+    }
+
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "name" => "required|string|max:255|unique:users,name",
+            "email" => "required|email|unique:users,email",
+            "password" => "required|string",
+        ]);
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->save();
+        return back()->with("success", "Başarılıyla kayıt oldunuz. Giriş yapabilirsiniz.");
+
     }
 
 

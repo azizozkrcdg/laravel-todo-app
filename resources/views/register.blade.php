@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Giriş Yap')
+@section('title', 'kayıt ol')
 
 @section('content')
 <div class="login-container" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px;">
@@ -23,7 +23,7 @@
                         </div>
                     </div>
                     <h2 class="fw-bold text-dark mb-2">Hoş Geldiniz</h2>
-                    <p class="text-muted">Görev yönetimine devam etmek için giriş yapın</p>
+                    <p class="text-muted">Görev yönetimini kullanmak için kayıt olun</p>
                 </div>
 
                 {{-- Login Card --}}
@@ -33,13 +33,13 @@
                         {{-- Flash Messages --}}
                         @include('layouts.flash_message')
 
-                        {{-- Login Form --}}
-                        <form action="{{ route('login') }}" method="POST" class="needs-validation" novalidate>
+                        {{-- Register Form --}}
+                        <form action="{{route("register.store")}}" method="POST" class="needs-validation" novalidate>
                             @csrf
 
-                            {{-- Username Field --}}
+                            {{-- name Field --}}
                             <div class="mb-4 form-floating-custom">
-                                <label for="username" class="form-label fw-semibold">
+                                <label for="name" class="form-label fw-semibold">
                                     <i class="bi bi-person-circle text-primary me-2"></i>Kullanıcı Adı
                                 </label>
                                 <div class="input-group">
@@ -47,14 +47,35 @@
                                         <i class="bi bi-person"></i>
                                     </span>
                                     <input type="text"
-                                           name="username"
-                                           id="username"
+                                           name="name"
+                                           id="name"
                                            class="form-control form-control-lg custom-input"
                                            placeholder="Kullanıcı adınızı girin"
                                            required
                                            autofocus>
                                     <div class="invalid-feedback">
                                         Lütfen kullanıcı adınızı giriniz.
+                                    </div>
+                                </div>
+                            </div>
+
+                              <div class="mb-4 form-floating-custom">
+                                <label for="email" class="form-label fw-semibold">
+                                    <i class="bi bi-envelope-fill text-primary me-2"></i>E-mail
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text custom-input-icon">
+                                        <i class="bi bi-envelope"></i>
+                                    </span>
+                                    <input type="email"
+                                           name="email"
+                                           id="email"
+                                           class="form-control form-control-lg custom-input"
+                                           placeholder="E-mail adresinizi girin"
+                                           required
+                                           autofocus>
+                                    <div class="invalid-feedback">
+                                        Lütfen mail adresinizi giriniz.
                                     </div>
                                 </div>
                             </div>
@@ -83,21 +104,12 @@
                                 </div>
                             </div>
 
-                            {{-- Remember Me --}}
-                            <div class="mb-4">
-                                <div class="form-check">
-                                    <input class="form-check-input custom-checkbox" type="checkbox" id="remember">
-                                    <label class="form-check-label text-muted" for="remember">
-                                        Beni hatırla
-                                    </label>
-                                </div>
-                            </div>
 
-                            {{-- Login Button --}}
+                            {{-- Register Button --}}
                             <div class="d-grid mb-4">
                                 <button type="submit" class="btn btn-primary btn-lg login-btn">
                                     <i class="bi bi-box-arrow-in-right me-2"></i>
-                                    <span class="btn-text">Giriş Yap</span>
+                                    <span class="btn-text">Kayıt Ol</span>
                                 </button>
                             </div>
 
@@ -109,9 +121,9 @@
                             {{-- Register Link --}}
                             <div class="text-center">
                                 <p class="text-muted mb-0">
-                                    Hesabınız yok mu?
-                                    <a href="{{route("register")}}" class="text-primary fw-semibold text-decoration-none">
-                                        Kayıt olun
+                                    Hesabınız var mı?
+                                    <a href="{{route("login")}}" class="text-primary fw-semibold text-decoration-none">
+                                        Giriş Yapın
                                     </a>
                                 </p>
                             </div>
@@ -123,7 +135,7 @@
                 <div class="text-center mt-4 login-footer">
                     <p class="text-muted small mb-0">
                         <i class="bi bi-shield-check me-1"></i>
-                        Güvenli giriş ile korunuyorsunuz
+                        Verileriniz güvenli bir şekilde korunmaktadır
                     </p>
                 </div>
             </div>

@@ -85,7 +85,7 @@
                                                     class="bi {{ $task->task_status ? 'bi-check-circle' : 'bi-clock' }} me-1"></i>
                                                 {{ $task->task_status ? 'Tamamlandı' : 'Devam Ediyor' }}
                                             </span>
-                                            <small class="text-muted">#{{ $task->id }}</small>
+                                            {{-- <small class="text-muted">#{{ $task->id }}</small> --}}
                                         </div>
                                     </div>
 

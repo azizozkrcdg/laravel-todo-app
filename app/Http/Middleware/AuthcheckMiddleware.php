@@ -17,7 +17,7 @@ class AuthcheckMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if(!Auth::check()) {
-            return redirect()->route("login")->with("error", "You must be logged in to access this page.");
+            return redirect()->route("login")->with("error", "Önce Giriş Yapmalısınız!");
         }
         return $next($request);
     }
