@@ -14,7 +14,7 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = Task::where("user_id", Auth::user()->id)
-            ->orderBy("task_date", "desc")
+            ->orderBy("created_at", "desc")
             ->get();
 
         return view("index", compact("tasks"));
@@ -35,7 +35,7 @@ class TaskController extends Controller
     {
         $request->validate([
             'task_title' => 'required|string|max:255',
-            'task_content' => 'nullable|string',
+            'task_content' => 'required|string',
             'task_date' => 'required|date',
         ]);
 
