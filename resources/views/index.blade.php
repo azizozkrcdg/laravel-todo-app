@@ -10,13 +10,38 @@
             <div class="col-12 text-center">
                 <div class="card border-0 shadow-lg"
                     style="background: rgba(255, 255, 255, 0.98); box-shadow: 0 15px 35px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.07) !important;">
+                    <div class="row">
+                        <div class="card-body py-4 col-md-11 text-center">
+                            <h1 class="display-4 fw-bold text-primary mb-0">
+                                <i class="bi bi-clipboard-check me-3"></i>Görev Yöneticisi
+                            </h1>
+                            <p class="lead text-muted mt-2">Görevlerinizi organize edin ve takip edin           </p>
+                        </div>
+                        <div class="col-md-1 d-flex align-items-center justify-content-center">
+                            <div class="dropdown">
+                                <a href="#" class="dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-person-circle" style="font-size: 2.8rem; color: #0d6efd;"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
+                                    <li>
+                                        <a class="dropdown-item btn btn-outline-primary" href="{{route("profile")}}">
+                                            <i class="bi bi-person me-2"></i>Hesabım
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item btn btn-outline-danger text-danger" href="{{ route('logout') }}">
+                                            <i class="bi bi-box-arrow-right me-2"></i>Çıkış Yap
+                                        </a>
+                                    </li>
 
-                    <div class="card-body py-4">
-                        <h1 class="display-4 fw-bold text-primary mb-0">
-                            <i class="bi bi-clipboard-check me-3"></i>Görev Yöneticisi
-                        </h1>
-                        <p class="lead text-muted mt-2">Görevlerinizi organize edin ve takip edin</p>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -46,9 +71,7 @@
                                     <i class="bi bi-plus-circle me-2"></i>Yeni Görev
                                 </a>
 
-                                <a href="{{ route('logout') }}" class="btn btn-outline-danger btn-lg">
-                                    <i class="bi bi-box-arrow-right me-2"></i>Çıkış
-                                </a>
+
 
                             </div>
                         </div>
@@ -85,7 +108,7 @@
                                                     class="bi {{ $task->task_status ? 'bi-check-circle' : 'bi-clock' }} me-1"></i>
                                                 {{ $task->task_status ? 'Tamamlandı' : 'Devam Ediyor' }}
                                             </span>
-                                            {{-- <small class="text-muted">#{{ $task->id }}</small> --}}
+                                            {{-- <small class="text-muted">#{{ $task->id }}</small>  --}}
                                         </div>
                                     </div>
 

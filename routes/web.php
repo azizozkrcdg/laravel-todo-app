@@ -24,6 +24,8 @@ Route::prefix("admin")->middleware(AuthcheckMiddleware::class)->group(function (
     Route::put("/statusUpdate/{id}", [TaskController::class, "statusUpdate"])->name("statusUpdate");
 
     Route::get("/logout", [UserController::class, "logout"])->name("logout");
+
+    Route::get("/profile", [UserController::class, "profile"])->name("profile");
 });
 
 
