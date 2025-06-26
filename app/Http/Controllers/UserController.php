@@ -25,7 +25,7 @@ class UserController extends Controller
             ->first();
 
         if($isUser) {
-            if(Hash::check($password, $isUser->password)) {
+            if(Hash::check($password, (string) $isUser->password)) {
                 Auth::login($isUser);
                 return redirect()->route("getTask");
             } else {
@@ -65,7 +65,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
-        return back()->with("success", "Başarılıyla kayıt oldunuz. Giriş yapabilirsiniz.");
+        return redirect()->route("login")->with("success", "Başarılıyla kayıt oldunuz. Giriş yapabilirsiniz.");
 
     }
 
