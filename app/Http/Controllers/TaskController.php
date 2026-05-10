@@ -28,9 +28,7 @@ class TaskController extends Controller
         return view("create_task");
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
         $request->validate([
@@ -51,17 +49,10 @@ class TaskController extends Controller
         return redirect()->back()->with('success', 'Görev başarıyla eklendi.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
+
+
     public function edit(string $id)
     {
         $task = Task::find($id);
@@ -117,4 +108,29 @@ class TaskController extends Controller
 
         return redirect()->back()->with("success", "Görev durumu güncellendi.");
     }
-}
+
+    public function completed_note_page(string $id) {
+        $task = Task::find($id);
+        return view("completed", compact("task"));
+    }
+
+    public function complete_task(Request $request, string $id)
+    {
+        $request->validate([
+            'completed_title' => 'required|string|max:255',
+            'completed_content' => 'nullable|string',
+            'completed_date' => 'required|date',
+        ]);
+
+        $task = Task::find($id);
+
+        $task->update([
+            "completed_title" => $request->completed_title,
+            "completed_content" => $request->completed_content,
+            "completed_date" => $request->completed_date,
+            "task_status" => 1
+        ]);
+
+        return redirect()->route("getTask")->with('success', 'Görev başarıyla tamalandı.');
+    }
+}   

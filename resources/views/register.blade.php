@@ -47,8 +47,6 @@
                                 </div>
                             @endif
 
-
-
                             {{-- Register Form --}}
                             <form action="{{ route('register.store') }}" method="POST" class="needs-validation" novalidate>
                                 @csrf

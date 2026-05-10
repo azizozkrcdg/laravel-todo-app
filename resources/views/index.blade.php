@@ -15,16 +15,17 @@
                             <h1 class="display-4 fw-bold text-primary mb-0">
                                 <i class="bi bi-clipboard-check me-3"></i>Görev Yöneticisi
                             </h1>
-                            <p class="lead text-muted mt-2">Görevlerinizi organize edin ve takip edin           </p>
+                            <p class="lead text-muted mt-2">Görevlerinizi organize edin ve takip edin </p>
                         </div>
                         <div class="col-md-1 d-flex align-items-center justify-content-center">
                             <div class="dropdown">
-                                <a href="#" class="dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a href="#" class="dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
                                     <i class="bi bi-person-circle" style="font-size: 2.8rem; color: #0d6efd;"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
                                     <li>
-                                        <a class="dropdown-item btn btn-outline-primary" href="{{route("profile")}}">
+                                        <a class="dropdown-item btn btn-outline-primary" href="{{ route('profile') }}">
                                             <i class="bi bi-person me-2"></i>Hesabım
                                         </a>
                                     </li>
@@ -32,7 +33,8 @@
                                         <hr class="dropdown-divider">
                                     </li>
                                     <li>
-                                        <a class="dropdown-item btn btn-outline-danger text-danger" href="{{ route('logout') }}">
+                                        <a class="dropdown-item btn btn-outline-danger text-danger"
+                                            href="{{ route('logout') }}">
                                             <i class="bi bi-box-arrow-right me-2"></i>Çıkış Yap
                                         </a>
                                     </li>
@@ -147,9 +149,9 @@
                                                 <i class="bi bi-pencil-square me-1"></i>Düzenle
                                             </a>
 
-                                            {{-- Complete Button --}}
-                                            @if (!$task->task_status)
-                                                <form method="POST" action="{{ route('statusUpdate', $task->id) }}"
+                                            {{-- old Complete Button --}}
+                                            {{-- @if (!$task->task_status)
+                                                <form method="POST" action="{{ route("completed_note_page") }}"
                                                     class="flex-fill">
                                                     @csrf
                                                     @method('PUT')
@@ -157,18 +159,26 @@
                                                         <i class="bi bi-check-square me-1"></i>Tamamla
                                                     </button>
                                                 </form>
+                                            @endif --}}
+
+                                            @if (!$task->task_status)
+
+                                                <a href="{{ route('completed_note_page' , $task->id) }}"
+                                                    class="btn btn-outline-success btn-sm">
+                                                    <i class="bi bi-check-square me-1"></i> Tamamla
+                                                </a>
                                             @endif
 
-                                            {{-- Delete Button --}}
-                                            <form action="{{ route('taskDelete', $task->id) }}" method="POST"
-                                                class="flex-fill"
-                                                onsubmit="return confirm('Bu görevi silmek istediğinize emin misiniz?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-outline-danger btn-sm w-100">
-                                                    <i class="bi bi-trash me-1"></i>Sil
-                                                </button>
-                                            </form>
+                                                {{-- Delete Button --}}
+                                                <form action="{{ route('taskDelete', $task->id) }}" method="POST"
+                                                    class="flex-fill"
+                                                    onsubmit="return confirm('Bu görevi silmek istediğinize emin misiniz?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm w-100">
+                                                        <i class="bi bi-trash me-1"></i>Sil
+                                                    </button>
+                                                </form>
                                         </div>
                                     </div>
                                 </div>

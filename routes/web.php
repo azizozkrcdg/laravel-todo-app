@@ -26,6 +26,9 @@ Route::prefix("admin")->middleware(AuthcheckMiddleware::class)->group(function (
     Route::get("/logout", [UserController::class, "logout"])->name("logout");
 
     Route::get("/profile", [UserController::class, "profile"])->name("profile");
+
+    Route::get("/completed/{id}", [TaskController::class, "completed_note_page"])->name("completed_note_page");
+    Route::post("/completeTask/{id}", [TaskController::class, "complete_task"])->name("complete_task");
 });
 
 
