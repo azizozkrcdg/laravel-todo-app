@@ -46,7 +46,7 @@ class TaskController extends Controller
 
 
 
-        return redirect()->back()->with('success', 'Görev başarıyla eklendi.');
+        return redirect()->route("getTask")->with('success', 'Görev başarıyla eklendi.');
     }
 
 
@@ -79,7 +79,7 @@ class TaskController extends Controller
             "task_date" => $request->task_date
         ]);
 
-        return redirect()->back()->with('success', 'Görev başarıyla güncellendi.');
+        return redirect()->route("getTask")->with('success', 'Görev başarıyla güncellendi.');
     }
 
     /**
@@ -111,7 +111,8 @@ class TaskController extends Controller
 
     public function completed_note_page(string $id) {
         $task = Task::find($id);
-        return view("completed", compact("task"));
+        $today = now()->format('Y-m-d');
+        return view("completed", compact("task", "today"));
     }
 
     public function complete_task(Request $request, string $id)
@@ -124,13 +125,23 @@ class TaskController extends Controller
 
         $task = Task::find($id);
 
-        $task->update([
+        if ($task) {
+            $task->update([
             "completed_title" => $request->completed_title,
             "completed_content" => $request->completed_content,
             "completed_date" => $request->completed_date,
             "task_status" => 1
         ]);
+        }else {
+            return redirect()->back()->with('error', 'Görev bulunamadı.');
+        }
 
         return redirect()->route("getTask")->with('success', 'Görev başarıyla tamalandı.');
     }
-}   
+
+    public function show_task(string $id) {
+        $task = Task::find($id);
+
+        return view("show_task", compact("task"));
+    }
+}

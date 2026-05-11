@@ -5,19 +5,7 @@
     <div class="container-fluid px-4 py-5"
         style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); min-height: 100vh;">
         {{-- Header Section --}}
-        <div class="row justify-content-center mb-5">
-            <div class="col-12 col-lg-8 text-center">
-                <div class="card border-0 shadow-lg header-card"
-                    style="background: rgba(255, 255, 255, 0.98); box-shadow: 0 15px 35px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.07) !important;">
-                    <div class="card-body py-4">
-                        <h1 class="display-5 fw-bold text-primary mb-0">
-                            <i class="bi bi-check-square me-3"></i>Görevi Tamamla
-                        </h1>
-                        <p class="lead text-muted mt-2">Görevinizi tamamlayın</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+       @include("layouts.header")
 
         {{-- Main Form Section --}}
         <div class="row justify-content-center">
@@ -70,7 +58,7 @@
                                     <i class="bi bi-calendar-event text-warning me-2"></i>İşlem Tamamlanma Tarihi
                                 </label>
                                 <input type="date" name="completed_date"
-                                    class="form-control form-control-lg custom-input" value="#" required>
+                                    class="form-control form-control-lg custom-input" max="{{ $today }}" required>
                                 <div class="invalid-feedback">
                                     Lütfen geçerli bir tarih seçiniz.
                                 </div>

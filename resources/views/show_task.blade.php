@@ -1,10 +1,10 @@
 @extends('layouts.app')
-@section('title', 'Görev Güncelle')
+@section('title', 'Görev Görüntüle')
 
 @section('content')
 <div class="container-fluid px-4 py-5" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); min-height: 100vh;">
     {{-- Header Section --}}
-   @include("layouts.header")
+    @include("layouts.header")
 
     {{-- Main Form Section --}}
     <div class="row justify-content-center">
@@ -22,7 +22,7 @@
                     @include("layouts.flash_message")
 
                     {{-- Form --}}
-                    <form action="{{ route('taskUpdate', $task->id) }}" method="POST" class="needs-validation" novalidate>
+                    <form action="#" method="POST" class="needs-validation" novalidate>
                         @csrf
                         @method("PUT")
 
@@ -31,7 +31,7 @@
                             <label for="task_title" class="form-label fw-semibold">
                                 <i class="bi bi-card-text text-primary me-2"></i>Görev Başlığı
                             </label>
-                            <input type="text"
+                            <input readonly type="text"
                                    name="task_title"
                                    class="form-control form-control-lg custom-input"
                                    value="{{ $task->task_title }}"
@@ -47,11 +47,11 @@
                             <label for="task_content" class="form-label fw-semibold">
                                 <i class="bi bi-textarea-t text-success me-2"></i>Görev Açıklaması
                             </label>
-                            <textarea name="task_content"
+                            <textarea readonly name="task_content"
                                       rows="4"
                                       class="form-control form-control-lg custom-textarea"
-                                      placeholder="Göreviniz hakkında detaylı bilgi veriniz...">{{ $task->task_content }}</textarea>
-                            <small class="form-text text-muted">Bu alan isteğe bağlıdır</small>
+                                      placeholder="Göreviniz hakkında detaylı bilgi veriniz...">{{ $task->task_content }} </textarea>
+
                         </div>
 
                         {{-- Task Date --}}
@@ -59,7 +59,7 @@
                             <label for="task_date" class="form-label fw-semibold">
                                 <i class="bi bi-calendar-event text-warning me-2"></i>Hedef Tarihi
                             </label>
-                            <input type="date"
+                            <input readonly type="date"
                                    name="task_date"
                                    class="form-control form-control-lg custom-input"
                                    value="{{ $task->task_date }}"
@@ -70,14 +70,56 @@
                             <small class="form-text text-muted">Görevin tamamlanması gereken tarih</small>
                         </div>
 
+                        {{-- Task completed title --}}
+                        <div class="mb-4 form-floating-custom">
+                            <label for="task_title" class="form-label fw-semibold">
+                                <i class="bi bi-card-text text-primary me-2"></i>Yapılan İşlem Başlığı
+                            </label>
+                            <input readonly type="text"
+                                   name="task_title"
+                                   class="form-control form-control-lg custom-input"
+                                   value="{{ $task->completed_title }}"
+                                   placeholder="Örn: Proje sunumunu hazırla"
+                                   required>
+
+                        </div>
+
+                        {{-- Task completed Content --}}
+                        <div class="mb-4 form-floating-custom">
+                            <label for="task_content" class="form-label fw-semibold">
+                                <i class="bi bi-textarea-t text-success me-2"></i>Yapılan İşlem Açıklaması
+                            </label>
+                            <textarea readonly name="task_content"
+                                      rows="4"
+                                      class="form-control form-control-lg custom-textarea"
+                                      placeholder="Göreviniz hakkında detaylı bilgi veriniz...">{{ $task->completed_content }} </textarea>
+
+                        </div>
+
+                        {{-- Task completed Date --}}
+                        <div class="mb-5 form-floating-custom">
+                            <label for="task_date" class="form-label fw-semibold">
+                                <i class="bi bi-calendar-event text-warning me-2"></i>İşlem Yapılma Tarihi
+                            </label>
+                            <input readonly type="date"
+                                   name="task_date"
+                                   class="form-control form-control-lg custom-input"
+                                   value="{{ $task->completed_date }}"
+                                   required>
+                            <div class="invalid-feedback">
+                                Lütfen geçerli bir tarih seçiniz.
+                            </div>
+                            <small class="form-text text-muted">Görevin tamamlandığı tarih</small>
+                        </div>
+
                         {{-- Action Buttons --}}
                         <div class="d-grid gap-3 d-md-flex justify-content-md-end">
                             <a href="{{ route('getTask') }}" class="btn btn-outline-secondary btn-lg px-4">
-                                <i class="bi bi-x-circle me-2"></i>İptal Et
+                                <i class="bi bi-arrow-left-circle me-2"></i>Geri Dön
                             </a>
-                            <button type="submit" class="btn btn-success btn-lg px-4 submit-btn">
+                            {{-- <button type="submit" class="btn btn-success btn-lg px-4 submit-btn">
                                 <i class="bi bi-save me-2"></i>Güncellemeyi Kaydet
-                            </button>
+                            </button> --}}
                         </div>
                     </form>
                 </div>
