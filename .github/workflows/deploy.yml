@@ -1,0 +1,54 @@
+name: Laravel FTP Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Kodlari GitHub'dan al
+        uses: actions/checkout@v4
+
+      - name: PHP kur
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Composer paketlerini kur
+        run: composer install --no-dev --optimize-autoloader --no-interaction
+
+      - name: Node.js kur
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: NPM paketlerini kur
+        run: npm ci
+
+      - name: Vite build al
+        run: npm run build
+
+      - name: Laravel public dosyalarini root'a hazirla
+        run: |
+          cp public/index.php index.php
+          cp public/.htaccess .htaccess
+          cp -r public/build build || true
+          sed -i "s|__DIR__.'/../vendor/autoload.php'|__DIR__.'/vendor/autoload.php'|g" index.php
+          sed -i "s|__DIR__.'/../bootstrap/app.php'|__DIR__.'/bootstrap/app.php'|g" index.php
+
+      - name: FTP ile cPanel'e gonder
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /public_html/task.azzsecteknoloji.com.tr/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            .env
