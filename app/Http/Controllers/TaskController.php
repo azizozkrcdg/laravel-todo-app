@@ -140,7 +140,9 @@ class TaskController extends Controller
     }
 
     public function show_task(string $id) {
-        $task = Task::find($id);
+        $task = Task::where("id", $id)
+                ->where("user_id", Auth::user()->id)
+                ->firstOrFail();
 
         return view("show_task", compact("task"));
     }
