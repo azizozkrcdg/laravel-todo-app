@@ -9,24 +9,32 @@ use App\Models\Task;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
-    public function register(): void
-    {
-        //
-    }
-
-    /**
-     * Bootstrap any application services.
-     */
+    
     public function boot(): void
     {
         View::composer('layouts.header', function ($view) {
 
-            $taskCount = Task::count();
-            $completedCount = Task::where('task_status', 1)->count();
-            $unCompletedCount = Task::where('task_status', 0)->count();
+            if (!auth()->check()) {
+                $view->with([
+                    "taskCount" => 0,
+                    "completedCount" => 0,
+                    "unCompletedCount" => 0
+                ]);
+
+                return;
+            }
+
+            $userId = auth()->id();
+
+            $taskCount = Task::where("user_id", $userId)
+                ->count();
+            $completedCount = Task::where("user_id", $userId)
+                ->where("task_status", 1)
+                ->count();
+            $unCompletedCount = Task::where("user_id", $userId)
+                ->where("task_status", 0)
+                    ->count();
+
             $view->with([
                 'taskCount' => $taskCount,
                 'completedCount' => $completedCount,
