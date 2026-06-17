@@ -15,4 +15,3 @@ Bu proje, Laravel framework'ü kullanılarak geliştirilmiş basit bir **Görev 
 - 🧠 Basit ve anlaşılır kod yapısı
 - 🎨 Şık ve modern arayüz (Blade + Bootstrap)
 
-https://task.azizozkaracadag.online
